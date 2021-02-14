@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.4.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "com.github.node-gradle.node" version "3.0.1"
     id 'java'
 }
 
@@ -14,18 +15,42 @@ configurations {
     }
 }
 
+task copyFrontLib(type: Copy) {
+//    from "$projectDir/src/main/resources/static/build/."
+//    into "$projectDir/build/resources/main/static"
+}
+
+task buildReact(type: Exec) {
+    workingDir "$projectDir/src/main/resources/static"
+    commandLine "npm", "run", "build"
+}
+
+task installReact(type: Exec) {
+    workingDir "$projectDir/src/main/resources/static"
+    commandLine "npm", "audit", "fix"
+    commandLine 'npm', 'install'
+}
+
+buildReact.dependsOn installReact
+copyFrontLib.dependsOn buildReact
+compileJava.dependsOn copyFrontLib
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
 }
 
 test {
