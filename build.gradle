@@ -15,26 +15,6 @@ configurations {
     }
 }
 
-task copyFrontLib(type: Copy) {
-//    from "$projectDir/src/main/resources/static/build/."
-//    into "$projectDir/build/resources/main/static"
-}
-
-task buildReact(type: Exec) {
-    workingDir "$projectDir/src/main/resources/static"
-    commandLine "npm", "run", "build"
-}
-
-task installReact(type: Exec) {
-    workingDir "$projectDir/src/main/resources/static"
-    commandLine "npm", "audit", "fix"
-    commandLine 'npm', 'install'
-}
-
-buildReact.dependsOn installReact
-copyFrontLib.dependsOn buildReact
-compileJava.dependsOn copyFrontLib
-
 repositories {
     mavenCentral()
 }
@@ -43,6 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
@@ -50,7 +31,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'org.springframework.security:spring-security-test'
-
 }
 
 test {
