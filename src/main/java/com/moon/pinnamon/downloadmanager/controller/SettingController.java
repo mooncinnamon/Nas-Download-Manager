@@ -3,6 +3,7 @@ package com.moon.pinnamon.downloadmanager.controller;
 import com.moon.pinnamon.downloadmanager.service.SettingService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RestController
 public class SettingController {
@@ -14,7 +15,8 @@ public class SettingController {
     }
 
     @GetMapping("/v1/setting/video")
-    public String getVideoPath(){
-        return settingService.getVideoPath();
+    public Mono<String> getVideoPath() {
+        String url = settingService.getVideoPath();
+        return Mono.just(url);
     }
 }
