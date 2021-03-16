@@ -4,7 +4,6 @@ import com.moon.pinnamon.downloadmanager.model.Video;
 import com.moon.pinnamon.downloadmanager.repository.VideoRepository;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 @Service
 public class MediaStreamingServiceImpl implements MediaStreamingService {
@@ -17,7 +16,7 @@ public class MediaStreamingServiceImpl implements MediaStreamingService {
 
     @Override
     public Video getResourceByName(String name) {
-        return videoRepository.getVideoByName(name);
+        return null;
     }
 
     @Override

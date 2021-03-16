@@ -5,6 +5,6 @@ spring:
   profiles:
     active: local
   r2dbc:
-    url: r2dbc:h2:~/Project/h2/NasDownloadCenter
+    url: r2dbc:h2:file:///Users/mooncinnamon/Project/h2/NasDownloadCenter
     username: sa
     password:
