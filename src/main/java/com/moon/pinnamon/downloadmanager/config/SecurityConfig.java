@@ -20,6 +20,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity security) throws Exception{
-
+        security.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/h2-console/**").permitAll();
+        security.csrf().disable();
+        security.headers().frameOptions().disable();
     }
 }
